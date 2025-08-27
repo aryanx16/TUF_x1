@@ -7,9 +7,9 @@ A Chrome browser extension that enhances the TakeYouForward DSA (Data Structures
 ![Extension Demo](./icons/image.png)
 
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/your-username/tuf-dsa-tracker)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/aryanx16/TUF_x1)
 [![License](https://img.shields.io/badge/license-Open_Source-orange.svg)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/your-username/tuf-dsa-tracker.svg)](https://github.com/your-username/tuf-dsa-tracker/stargazers)
+[![Stars](https://img.shields.io/github/stars/aryanx16/TUF_x1.svg)](https://github.com/aryanx16/TUF_x1)
 
 </div>
 
