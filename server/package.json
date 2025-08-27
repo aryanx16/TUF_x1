@@ -1,0 +1,21 @@
+{
+  "name": "dsa-confidence-tracker-server",
+  "version": "1.0.0",
+  "description": "Backend server for DSA Confidence Tracker Chrome Extension",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "*",
+    "cors": "*",
+    "drizzle-orm": "*",
+    "drizzle-kit": "*",
+    "express": "*",
+    "express-session": "*"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "TUF Confidence Tracker",
+  "version": "1.0.0",
+  "description": "Add confidence tracking to TakeYouForward DSA sheets for better problem management",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://takeuforward.org/*",
+    "http://localhost:5001/*",
+    "https://tuf-v2.onrender.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://takeuforward.org/strivers-a2z-dsa-course/*",
+        "https://takeuforward.org/interviews/*",
+        "https://takeuforward.org/interview-sheets/*"
+      ],
+      "js": ["sync-manager.js", "content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "DSA Confidence Tracker",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["styles.css"],
+      "matches": ["https://takeuforward.org/*"]
+    }
+  ]
+}

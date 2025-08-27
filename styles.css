@@ -1,0 +1,254 @@
+/* TakeYouForward DSA Confidence Tracker Injected Styles */
+*{
+    /* border:navajowhite!important; */
+    
+}
+/* Confidence column header styling */
+.tuf-confidence-header {
+    background-color: #f8f9fa !important;
+    /* border: 1px solid #dee2e6 !important; */
+    padding: 12px 8px !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+    color: #495057 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+    min-width: 120px !important;
+    white-space: nowrap !important;
+}
+
+/* Confidence cell styling */
+.tuf-confidence-cell {
+    /* border: 1px solid #dee2e6 !important; */
+    padding: 8px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    min-width: 120px !important;
+}
+
+/* Confidence dropdown styling */
+.tuf-confidence-select {
+    width: 100% !important;
+    padding: 6px 8px !important;
+    border: 1px solid #898b8d !important;
+    border-radius: 4px !important;
+    background-color: white !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-family: inherit !important;
+    outline: none !important;
+}
+
+.tuf-confidence-select:hover {
+    border-color: #80bdff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+.tuf-confidence-select:focus {
+    border-color: #80bdff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25) !important;
+}
+
+/* Confidence level specific colors for dropdowns */
+.tuf-confidence-select[style*="background-color: rgb(11, 232, 129)"] {
+    background-color: #0f2411 !important;
+    color: #53c965 !important;
+    font-weight: 600 !important;
+}
+
+.tuf-confidence-select[style*="background-color: rgb(72, 219, 251)"] {
+    background-color: #020617 !important;
+    color: #0284c7 !important;
+    font-weight: 600 !important;
+}
+
+.tuf-confidence-select[style*="background-color: rgb(254, 202, 87)"] {
+    background-color: #271f11 !important;
+    color: #cca410 !important;
+    font-weight: 600 !important;
+}
+
+.tuf-confidence-select[style*="background-color: rgb(255, 107, 107)"] {
+    background-color: #331e1e !important;
+    color: #fd6951 !important;
+    font-weight: 600 !important;
+}
+
+.tuf-confidence-select[style*="background-color: rgb(224, 224, 224)"] {
+    background-color: #e0e0e0 !important;
+    color: #666 !important;
+    font-weight: normal !important;
+}
+
+/* Option styling within dropdowns */
+.tuf-confidence-select option {
+    background-color: white !important;
+    color: #333 !important;
+    font-weight: normal !important;
+    padding: 4px 8px !important;
+}
+
+/* Animation for confidence changes */
+@keyframes confidenceUpdate {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.tuf-confidence-select.updating {
+    animation: confidenceUpdate 0.3s ease-out !important;
+}
+
+/* Responsive design for confidence column */
+@media (max-width: 768px) {
+    .tuf-confidence-header {
+        font-size: 12px !important;
+        padding: 8px 4px !important;
+        min-width: 100px !important;
+    }
+    
+    .tuf-confidence-cell {
+        padding: 6px 4px !important;
+        min-width: 100px !important;
+    }
+    
+    .tuf-confidence-select {
+        font-size: 12px !important;
+        padding: 4px 6px !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .tuf-confidence-header {
+        /* border: 2px solid #000 !important; */
+        background-color: #fff !important;
+        color: #000 !important;
+    }
+    
+    /* .tuf-confidence-select { */
+        /* border: 2px solid #000 !important; */
+    /* } */
+}
+
+/* Dark mode support for websites that use it */
+@media (prefers-color-scheme: dark) {
+    .tuf-confidence-header {
+        background-color: #2c2d32 !important;
+        color: #f8f9fa !important;
+        /* border-color: #495057 !important; */
+    }
+    
+    /* .tuf-confidence-cell { */
+        /* border-color: #495057 !important; */
+    /* } */
+    
+    .tuf-confidence-select {
+        background-color: #495057 !important;
+        color: #f8f9fa !important;
+        /* border-color: #6c757d !important; */
+    }
+    
+    .tuf-confidence-select option {
+        background-color: #495057 !important;
+        color: #f8f9fa !important;
+    }
+}
+
+/* Ensure proper table layout */
+table:has(.tuf-confidence-header) {
+    table-layout: auto !important;
+    width: 100% !important;
+}
+
+/* Loading state for confidence dropdowns */
+.tuf-confidence-select.loading {
+    opacity: 0.6 !important;
+    pointer-events: none !important;
+}
+
+.tuf-confidence-select.loading::after {
+    content: "⏳" !important;
+    position: absolute !important;
+    right: 8px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+}
+
+/* Accessibility improvements */
+.tuf-confidence-select:focus-visible {
+    outline: 2px solid #007bff !important;
+    outline-offset: 2px !important;
+}
+
+/* Tooltip styling for confidence levels */
+.tuf-confidence-select[title]:hover::after {
+    content: attr(title) !important;
+    position: absolute !important;
+    bottom: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+}
+
+/* Print styles */
+@media print {
+    .tuf-confidence-header,
+    .tuf-confidence-cell {
+        /* border: 1px solid #000 !important; */
+        background: white !important;
+        color: #000 !important;
+    }
+    
+    .tuf-confidence-select {
+        appearance: none !important;
+        background: white !important;
+        color: #000 !important;
+        /* border: 1px solid #000 !important; */
+    }
+}
+
+/* Ensure compatibility with TakeYouForward's existing styles */
+.tuf-confidence-header,
+.tuf-confidence-cell,
+.tuf-confidence-select {
+    box-sizing: border-box !important;
+}
+
+/* Fix for potential conflicts with existing table styles */
+table th.tuf-confidence-header,
+table td.tuf-confidence-cell {
+    position: relative !important;
+}
+
+/* Loading animation for initial injection */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tuf-confidence-header.injected,
+.tuf-confidence-cell.injected {
+    animation: fadeIn 0.3s ease-out !important;
+}

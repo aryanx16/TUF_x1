@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Confidence Tracker Extension</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .extension-files {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .file-link {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s;
+        }
+        .file-link:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .status {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid rgba(0, 255, 0, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 DSA Confidence Tracker</h1>
+        <p>Chrome Extension for tracking your confidence in Data Structures & Algorithms problems</p>
+        
+        <div class="status">
+            <h3>✅ Extension Server Running</h3>
+            <p>API Server: <span id="apiStatus">Checking...</span></p>
+        </div>
+
+        <div class="extension-files">
+            <a href="manifest.json" class="file-link">📋 Manifest</a>
+            <a href="popup.html" class="file-link">🖥️ Popup</a>
+            <a href="popup.js" class="file-link">⚙️ Popup JS</a>
+            <a href="background.js" class="file-link">🔄 Background</a>
+            <a href="content.js" class="file-link">📄 Content Script</a>
+        </div>
+
+        <h3>Installation Instructions</h3>
+        <ol style="text-align: left; max-width: 500px; margin: 0 auto;">
+            <li>Open Chrome and go to <code>chrome://extensions/</code></li>
+            <li>Enable "Developer mode" in the top right</li>
+            <li>Click "Load unpacked" and select this project folder</li>
+            <li>The extension will appear in your browser toolbar</li>
+        </ol>
+    </div>
+
+    <script>
+        // Check API server status
+        fetch('https://tuf-v2.onrender.com/health')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('apiStatus').textContent = '✅ Running on port 5001';
+                document.getElementById('apiStatus').style.color = '#4ade80';
+            })
+            .catch(error => {
+                document.getElementById('apiStatus').textContent = '❌ Not responding';
+                document.getElementById('apiStatus').style.color = '#ef4444';
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,782 @@
+<!-- 
+
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=400, initial-scale=1.0">
+    <title>DSA Confidence Tracker</title>
+    <link rel="stylesheet" href="popup.css">
+    <style>
+        html, body {
+            width: 400px !important;
+            min-width: 400px !important;
+            max-width: 400px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup-container">
+        <header class="popup-header">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>DSA Confidence Tracker</h1>
+            </div>
+            <p class="subtitle">Track your confidence on TakeYouForward problems</p>
+        </header>
+
+        <main class="popup-main">
+            <div id="status-message" class="status-message"></div>
+
+            <section class="cloud-section">
+                <h2>☁️ Cloud Sync</h2>
+                <div id="auth-controls">
+                    <div id="login-form" class="auth-form">
+                        <input type="text" id="username-input" placeholder="Username" required>
+                        <input type="password" id="password-input" placeholder="Password" required>
+                        <button id="login-btn" class="action-btn primary">Login</button>
+                        <button id="signup-btn" class="action-btn secondary">Sign Up</button>
+                    </div>
+                    
+                    <div id="user-info" class="user-info" style="display: none;">
+                        <div class="user-details">
+                            <span id="user-email"></span>
+                            <span class="sync-status" id="sync-status">Synced</span>
+                        </div>
+                        <button id="logout-btn" class="action-btn secondary">Logout</button>
+                        <button id="sync-btn" class="action-btn primary">Sync Now</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="statistics-section">
+                <h2>📊 Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="total-problems">0</span>
+                        <span class="stat-label">Total Problems</span>
+                    </div>
+                    <div class="stat-item expert">
+                        <span class="stat-value" id="expert-count">0</span>
+                        <span class="stat-label">Expert</span>
+                    </div>
+                    <div class="stat-item high">
+                        <span class="stat-value" id="high-count">0</span>
+                        <span class="stat-label">High</span>
+                    </div>
+                    <div class="stat-item medium">
+                        <span class="stat-value" id="medium-count">0</span>
+                        <span class="stat-label">Medium</span>
+                    </div>
+                    <div class="stat-item low">
+                        <span class="stat-value" id="low-count">0</span>
+                        <span class="stat-label">Low</span>
+                    </div>
+                    <div class="stat-item none">
+                        <span class="stat-value" id="none-count">0</span>
+                        <span class="stat-label">Not Set</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="progress-section">
+                <h2>📈 Progress</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p class="progress-text" id="progress-text">0% confident problems</p>
+            </section>
+
+            <section class="actions-section">
+                <h2>⚙️ Actions</h2>
+                <div class="action-buttons">
+                    <button id="export-btn" class="action-btn export">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Export Data
+                    </button>
+                    
+                    <label for="import-file" class="action-btn import">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Import Data
+                    </label>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                    
+                    <button id="clear-btn" class="action-btn clear">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Clear All Data
+                    </button>
+                </div>
+            </section>
+
+            <section class="legend-section">
+                <h2>🎯 Confidence Levels</h2>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color expert"></div>
+                        <span>Expert - Complete mastery</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color high"></div>
+                        <span>High - Very confident</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color medium"></div>
+                        <span>Medium - Somewhat confident</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color low"></div>
+                        <span>Low - Need more practice</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color none"></div>
+                        <span>Not Set - No confidence rating</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+       <footer class="popup-footer">
+  <p>
+    Made with ❤️ by 
+    <a href="https://www.linkedin.com/in/aryan-babare-49bb24298/" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       style="text-decoration: none; color: inherit; font-weight: bold;">
+       @Aryan Babare
+    </a>
+  </p>
+</footer>
+
+    </div>
+
+    <script src="sync-manager.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->
+
+
+
+
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=400, initial-scale=1.0">
+    <title>DSA Confidence Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --white: #ffffff;
+            
+            --expert: #059669;
+            --high: #0891b2;
+            --medium: #7c3aed;
+            --low: #dc2626;
+            --none: var(--gray-400);
+            
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+
+        html, body {
+            width: 400px !important;
+            min-width: 400px !important;
+            max-width: 400px !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--gray-800);
+            background: var(--gray-50);
+        }
+
+        .popup-container {
+            background: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .popup-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            padding: 24px 20px 20px 20px;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo svg {
+            width: 28px;
+            height: 28px;
+            opacity: 0.9;
+        }
+
+        .logo h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        /* Main Content */
+        .popup-main {
+            flex: 1;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Status Message */
+        .status-message {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+            margin-top: 10px;
+        }
+
+        .status-message.success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-message.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        /* Sections */
+        section {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 1px solid var(--gray-100);
+            box-shadow: var(--shadow-sm);
+        }
+
+        section h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Cloud Sync */
+        .cloud-section h2 {
+            color: var(--primary);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .auth-form input {
+            padding: 12px 16px;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            transition: all 0.2s ease;
+            background: var(--white);
+        }
+
+        .auth-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgb(99 102 241 / 0.1);
+        }
+
+        .auth-form input::placeholder {
+            color: var(--gray-400);
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .user-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--gray-50);
+            border-radius: var(--radius-sm);
+        }
+
+        .user-details #user-email {
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .sync-status {
+            font-size: 12px;
+            color: var(--success);
+            font-weight: 500;
+        }
+
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-item {
+            background: var(--gray-50);
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-item.expert { border-color: var(--expert); background: #ecfdf5; }
+        .stat-item.high { border-color: var(--high); background: #f0f9ff; }
+        .stat-item.medium { border-color: var(--medium); background: #faf5ff; }
+        .stat-item.low { border-color: var(--low); background: #fef2f2; }
+        .stat-item.none { border-color: var(--none); background: var(--gray-50); }
+
+        .stat-value {
+            display: block;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        /* Progress */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 13px;
+            color: var(--gray-600);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .action-btn {
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            color: var(--gray-700);
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: var(--gray-50);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .action-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .action-btn.secondary {
+            background: var(--gray-100);
+            border-color: var(--gray-200);
+        }
+
+        .action-btn.export {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .action-btn.export:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .action-btn.import {
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        .action-btn.import:hover {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .action-btn.clear {
+            color: var(--error);
+            border-color: var(--error);
+        }
+
+        .action-btn.clear:hover {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--gray-700);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .legend-color.expert { background: var(--expert); }
+        .legend-color.high { background: var(--high); }
+        .legend-color.medium { background: var(--medium); }
+        .legend-color.low { background: var(--low); }
+        .legend-color.none { background: var(--none); }
+
+        /* Footer */
+        .popup-footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid var(--gray-100);
+            margin-top: 20px;
+        }
+
+        .popup-footer p {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+
+        .popup-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .popup-footer a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Responsive adjustments */
+        @media (max-height: 600px) {
+            .popup-header {
+                padding: 16px 20px;
+            }
+            
+            section {
+                padding: 16px;
+            }
+            
+            .popup-main {
+                gap: 16px;
+            }
+        }
+
+        /* Smooth scrolling */
+        .popup-container {
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .popup-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .popup-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .popup-container::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 2px;
+        }
+
+        .popup-container::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
+        }
+    </style>
+</head>
+<body>
+    <div class="popup-container">
+        <header class="popup-header">
+            <div class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>DSA Confidence Tracker</h1>
+            </div>
+            <p class="subtitle">Track your confidence on TakeYouForward problems</p>
+        </header>
+
+        <main class="popup-main">
+
+            <!-- Cloud Sync Section -->
+            <section class="cloud-section">
+                <h1><img src="Clouds.gif" align="center" width="50" alt=""> Cloud Sync</h1>
+                <div id="auth-controls">
+                    <div id="login-form" class="auth-form">
+                        <input type="text" id="username-input" placeholder="Username" required>
+                        <input type="password" id="password-input" placeholder="Password" required>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="login-btn" class="action-btn primary" style="flex: 1;">Login</button>
+                            <button id="signup-btn" class="action-btn secondary" style="flex: 1;">Sign Up</button>
+                        </div>
+                    </div>
+                    
+                    <div id="user-info" class="user-info" style="display: none;">
+                        <div class="user-details">
+                            <span id="user-email"></span>
+                            <span class="sync-status" id="sync-status">Synced</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="logout-btn" class="action-btn secondary" style="flex: 1;">Logout</button>
+                            <button id="sync-btn" class="action-btn primary" style="flex: 1;">Sync Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="status-message" class="status-message"></div>
+            </section>
+
+            <section class="statistics-section">
+                <h1><img align="center"  src="https://user-images.githubusercontent.com/74038190/216122041-518ac897-8d92-4c6b-9b3f-ca01dcaf38ee.png" width="33"/>  Statistics</h1>
+                <div class="stats-grid">
+                    <div class="stat-item" style="grid-column: 1 / -1;">
+                        <span class="stat-value" id="total-problems">0</span>
+                        <span class="stat-label">Total Problems</span>
+                    </div>
+                    <div class="stat-item expert">
+                        <span class="stat-value" id="expert-count">0</span>
+                        <span class="stat-label">Expert</span>
+                    </div>
+                    <div class="stat-item high">
+                        <span class="stat-value" id="high-count">0</span>
+                        <span class="stat-label">High</span>
+                    </div>
+                    <div class="stat-item medium">
+                        <span class="stat-value" id="medium-count">0</span>
+                        <span class="stat-label">Medium</span>
+                    </div>
+                    <div class="stat-item low">
+                        <span class="stat-value" id="low-count">0</span>
+                        <span class="stat-label">Low</span>
+                    </div>
+                    <!-- <div class="stat-item none" style="grid-column: 1 / -1;"> -->
+                        <!-- <span class="stat-value" id="none-count">0</span> -->
+                        <!-- <span class="stat-label">Not Set</span> -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="progress-section">
+                <h1><img src="Graph slow rise growth (3).gif" align="center" width="30" alt=""> Progress</h1>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p class="progress-text" id="progress-text">0% confident problems</p>
+            </section>
+
+            <section class="actions-section">
+                <h1>⚙️ Actions</h1>
+                <div class="action-buttons">
+                    <button id="export-btn" class="action-btn export">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Export Data
+                    </button>
+                    
+                    <label for="import-file" class="action-btn import">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Import Data
+                    </label>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                    
+                    <button id="clear-btn" class="action-btn clear">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Clear All Data
+                    </button>
+                </div>
+            </section>
+
+            <section class="legend-section">
+                <h1>🎯 Confidence Levels</h1>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color expert"></div>
+                        <span>Expert - Complete mastery</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color high"></div>
+                        <span>High - Very confident</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color medium"></div>
+                        <span>Medium - Somewhat confident</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color low"></div>
+                        <span>Low - Need more practice</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color none"></div>
+                        <span>Not Set - No confidence rating</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="popup-footer">
+            <p>
+                Made with ❤️ by 
+                <a href="https://www.linkedin.com/in/aryan-babare-49bb24298/" 
+                   target="_blank" 
+                   rel="noopener noreferrer">
+                   @Aryan Babare
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- <script> -->
+        
+                <script src="sync-manager.js"></script>
+    <script src="popup.js"></script>
+        <!-- }); -->
+    <!-- </script> -->
+</body>
+</html>
+
+
+
+
+
+
