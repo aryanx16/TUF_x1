@@ -1,10 +1,10 @@
 # 🧠 TakeYouForward DSA Confidence Tracker
 
-A Chrome browser extension that enhances the TakeYouForward DSA (Data Structures and Algorithms) learning platform by allowing users to track their confidence levels for different problems directly on the website. 🚀
+A Chrome browser extension that enhances the TakeYouForward DSA learning platform by allowing users to track their confidence levels for different problems directly on the website. 🚀
 
 <div align="center">
   
-![Extension Demo](./icons/image.png)
+![Extension Demo](./icons/Screenshot%202025-09-06%20104256.png)
 
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/aryanx16/TUF_x1)
@@ -12,6 +12,22 @@ A Chrome browser extension that enhances the TakeYouForward DSA (Data Structures
 [![Stars](https://img.shields.io/github/stars/aryanx16/TUF_x1.svg)](https://github.com/aryanx16/TUF_x1)
 
 </div>
+
+
+## 📦 Installation (How to use)
+
+### 🛠️ Option 1: Simple Manual Installation (Free)
+
+1. Download or clone this repository
+2. Open your Browser and go to `chrome://extensions/` (preferable chrome,brave)
+3. Enable "Developer mode" in the top right corner
+4. Click "Load unpacked" and select the project folder
+5. The extension will appear in your browser toolbar
+
+    (for any issue contact: aryanbabare1@gmail.com)
+### 🏪 Option 2: Chrome Web Store (Coming Soon)
+
+The extension will be available on the Chrome Web Store for easy installation.
 
 ## ✨ Features
 
@@ -21,20 +37,6 @@ A Chrome browser extension that enhances the TakeYouForward DSA (Data Structures
 - 🔐 **User Authentication**: Secure user accounts with username/password
 - 📈 **Statistics**: View your overall progress through the popup interface
 - ⚡ **Real-time Updates**: Changes sync automatically across all your devices
-
-## 📦 Installation
-
-### 🛠️ Option 1: Manual Installation (Free)
-
-1. Download or clone this repository
-2. Open Chrome and go to `chrome://extensions/`
-3. Enable "Developer mode" in the top right corner
-4. Click "Load unpacked" and select the project folder
-5. The extension will appear in your browser toolbar
-
-### 🏪 Option 2: Chrome Web Store (Coming Soon)
-
-The extension will be available on the Chrome Web Store for easy installation.
 
 ## 🎯 Usage
 
