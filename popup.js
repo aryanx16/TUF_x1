@@ -221,24 +221,24 @@ class PopupManager {
         });
 
         // Clear all data button
-        document.getElementById('clear-btn').addEventListener('click', async () => {
-            if (confirm('Are you sure you want to clear all confidence data? This action cannot be undone.')) {
-                try {
-                    await chrome.storage.local.remove(['tuf_dsa_confidence']);
+        // document.getElementById('clear-btn').addEventListener('click', async () => {
+        //     if (confirm('Are you sure you want to clear all confidence data? This action cannot be undone.')) {
+        //         try {
+        //             await chrome.storage.local.remove(['tuf_dsa_confidence']);
                     
-                    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-                    if (tab.url.includes('takeuforward.org')) {
-                        await chrome.tabs.sendMessage(tab.id, { action: 'clearData' });
-                    }
+        //             const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+        //             if (tab.url.includes('takeuforward.org')) {
+        //                 await chrome.tabs.sendMessage(tab.id, { action: 'clearData' });
+        //             }
                     
-                    this.showMessage('All data cleared successfully!', 'success');
-                    await this.loadStatistics();
-                } catch (error) {
-                    console.error('Error clearing data:', error);
-                    this.showMessage('Error clearing data. Please try again.', 'error');
-                }
-            }
-        });
+        //             this.showMessage('All data cleared successfully!', 'success');
+        //             await this.loadStatistics();
+        //         } catch (error) {
+        //             console.error('Error clearing data:', error);
+        //             this.showMessage('Error clearing data. Please try again.', 'error');
+        //         }
+        //     }
+        // });
 
         // Refresh statistics every 5 seconds when on TUF page
         setInterval(() => {

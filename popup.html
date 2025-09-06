@@ -249,8 +249,8 @@
 
         /* Header */
         .popup-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: var(--white);
+            background: linear-gradient(135deg, rgb(1, 1, 116) 0%, rgb(0, 174, 255) 100%);
+            color: rgb(182, 234, 252);
             padding: 24px 20px 20px 20px;
             border-radius: 0 0 var(--radius-lg) var(--radius-lg);
             margin-bottom: 20px;
@@ -335,12 +335,14 @@
         /* Cloud Sync */
         .cloud-section h2 {
             color: var(--primary);
+            /* border:2px solid black; */
         }
 
         .auth-form {
             display: flex;
             flex-direction: column;
             gap: 12px;
+            border:2px;
         }
 
         .auth-form input {
@@ -628,6 +630,7 @@
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
+                <!-- <img width="28" src="./icons/3d-cube-3d-icon-png-download-11803869.webp" alt=""> -->
                 <h1>DSA Confidence Tracker</h1>
             </div>
             <p class="subtitle">Track your confidence on TakeYouForward problems</p>
@@ -718,12 +721,12 @@
                     </label>
                     <input type="file" id="import-file" accept=".json" style="display: none;">
                     
-                    <button id="clear-btn" class="action-btn clear">
+                    <!-- <button id="clear-btn" class="action-btn clear">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                         Clear All Data
-                    </button>
+                    </button> -->
                 </div>
             </section>
 

@@ -11,6 +11,7 @@
   "host_permissions": [
     "https://takeuforward.org/*",
     "http://localhost:5001/*",
+    "https://tuf-x1-backend.onrender.com/*",
     "https://tuf-v2.onrender.com/*"
   ],
   "content_scripts": [
