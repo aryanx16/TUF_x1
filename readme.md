@@ -4,7 +4,7 @@ A Chrome browser extension that enhances the TakeYouForward DSA learning platfor
 
 <div align="center">
   
-![Extension Demo](./icons/Screenshot%202025-09-06%20104256.png)
+![Extension Demo](./icons/diagram-export-9-6-2025-10_59_13-AM.png)
 
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/aryanx16/TUF_x1)
